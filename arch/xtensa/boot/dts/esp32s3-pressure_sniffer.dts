@@ -6,9 +6,9 @@
 #include "esp32s3.dtsi"
 
 / {
-	chosen {
-		bootargs = "console=tty0 rw root=mtd:rootfs no_hash_pointers ";
-	};
+	//chosen {
+	//	bootargs = "console=tty0 rw root=mtd:rootfs no_hash_pointers ";
+	//};
 
 	memory@0 {
 		device_type = "memory";
@@ -47,6 +47,16 @@
 	};
 };
 
+//&gpio_out_mux {
+//	status = "ok";
+//	spi2_gpio_out: spi2_gpio_out {
+//		pinctrl-single,pins = <
+//			GPIO_FUNC_OUT_SEL(5) 110		/* SPI2 CS0:  GPIO5, signal 110 */
+//			GPIO_FUNC_OUT_SEL(6) 103		/* SPI2 MOSI: GPIO6, signal 103 */
+//			GPIO_FUNC_OUT_SEL(7) 101>;		/* SPI2 SCK:  GPIO7, signal 101 */
+//	};
+//};
+
 &rtc_iomux {
 	status = "ok";
 	usb_rtc_pins: usb_rtc_pins {
@@ -81,12 +91,12 @@
 			PIN(19) MUX_SLP_SEL			/* USB_D- */
 			PIN(20) MUX_SLP_SEL>;			/* USB_D+ */
 	};
-	lcd_pins: lcd_pins {
-		pinctrl-single,pins = <
-			PIN(4) FUN0_20MA			/* LCD_DC */
-			PIN(47) (FUN_SEL(1) | FUN_DRV_20MA)	/* LCD_CTRL */
-			PIN(48) (FUN_SEL(1) | FUN_DRV_20MA)>;	/* LCD_RST */
-	};
+//	lcd_pins: lcd_pins {
+//		pinctrl-single,pins = <
+//			PIN(4) FUN0_20MA			/* LCD_DC */
+//			PIN(47) (FUN_SEL(1) | FUN_DRV_20MA)	/* LCD_CTRL */
+//			PIN(48) (FUN_SEL(1) | FUN_DRV_20MA)>;	/* LCD_RST */
+//	};
 };
 
 &gpio0 {
@@ -100,11 +110,11 @@
 };
 
 &spi2 {
-	pinctrl-0 = <&spi2_pins &spi2_gpio_out>;
+	pinctrl-0 = <&spi2_pins/* &spi2_gpio_out*/>;
 	pinctrl-names = "default";
 	status = "ok";
 
-	lcd_spi@0 {
+	/*lcd_spi@0 {
 		compatible = "ilitek,ili9341";
 		reg = <0>;
 		spi-max-frequency = <15000000>;
@@ -118,7 +128,7 @@
 
 		pinctrl-0 = <&lcd_pins>;
 		pinctrl-names = "default";
-	};
+	};*/
 };
 
 &acm {
